@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KNU.PR.Annotations", "KNU.PR.Annotations\KNU.PR.Annotations.csproj", "{029D601B-3A40-43C6-A75E-E221E08DA98C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KNU.PR.DbManager", "KNU.PR.DbManager\KNU.PR.DbManager.csproj", "{EE1B5293-4D1D-458C-855B-59A13C474F69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{029D601B-3A40-43C6-A75E-E221E08DA98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{029D601B-3A40-43C6-A75E-E221E08DA98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{029D601B-3A40-43C6-A75E-E221E08DA98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{029D601B-3A40-43C6-A75E-E221E08DA98C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1B5293-4D1D-458C-855B-59A13C474F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1B5293-4D1D-458C-855B-59A13C474F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1B5293-4D1D-458C-855B-59A13C474F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1B5293-4D1D-458C-855B-59A13C474F69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C0080B67-02AB-42FC-8E39-B36C4BE7BF99}
+	EndGlobalSection
+EndGlobal

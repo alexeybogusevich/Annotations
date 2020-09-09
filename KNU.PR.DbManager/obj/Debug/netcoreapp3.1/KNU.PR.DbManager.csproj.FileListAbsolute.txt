@@ -1,0 +1,11 @@
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\bin\Debug\netcoreapp3.1\KNU.PR.DbManager.deps.json
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\bin\Debug\netcoreapp3.1\KNU.PR.DbManager.dll
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\obj\Debug\netcoreapp3.1\KNU.PR.DbManager.AssemblyInfoInputs.cache
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\obj\Debug\netcoreapp3.1\KNU.PR.DbManager.AssemblyInfo.cs
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\bin\Debug\netcoreapp3.1\KNU.PR.DbManager.pdb
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\obj\Debug\netcoreapp3.1\KNU.PR.DbManager.dll
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\obj\Debug\netcoreapp3.1\KNU.PR.DbManager.pdb
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\bin\Debug\netcoreapp3.1\KNU.PR.DbManager.runtimeconfig.json
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\bin\Debug\netcoreapp3.1\KNU.PR.DbManager.runtimeconfig.dev.json
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\obj\Debug\netcoreapp3.1\KNU.PR.DbManager.csproj.CoreCompileInputs.cache
+C:\Users\olboh\source\repos\KNU.PR.Annotations\KNU.PR.DbManager\obj\Debug\netcoreapp3.1\KNU.PR.DbManager.genruntimeconfig.cache

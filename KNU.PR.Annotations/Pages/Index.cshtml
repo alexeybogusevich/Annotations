@@ -1,0 +1,23 @@
+﻿@page
+@model IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Main";
+}
+
+<h2>Available Tags</h2>
+<table class="table">
+    <tbody>
+        @foreach (var tag in Model.Tags)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => tag.Name)
+            </td>
+            <td>
+                <a asp-page="/NewsByTag" asp-route-tagId="@tag.Id">Get News</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

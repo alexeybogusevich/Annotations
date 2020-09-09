@@ -1,0 +1,55 @@
+﻿@page
+@model KNU.PR.Annotations.Pages.NewsByTagModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "News";
+}
+
+<h2>News by selected tag</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsEntities[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsEntities[0].SourceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsEntities[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsEntities[0].PublishedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsEntities[0].Url)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.NewsEntities)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SourceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Url)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form method="post" name="ReturnToList">
+    <input type="submit" asp-page-handler="ReturnToList" value="Return to Tags" />
+</form>
