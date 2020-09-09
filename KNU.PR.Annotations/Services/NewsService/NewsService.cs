@@ -29,7 +29,7 @@ namespace KNU.PR.Annotations.Services.NewsService
 
         public async Task<List<NewsEntity>> GetNewsByTagAsync(Guid tagId)
         {
-            var tagNewsIds = await context.TagsNews.Where(t => t.TagId.Equals(tagId)).Select(t => t.NewsEntityId).ToListAsync();
+            var tagNewsIds = await context.TagsNews.Where(t => t.TagId.Equals(tagId)).OrderByDescending(n => n.OccurencesCount).Select(t => t.NewsEntityId).ToListAsync();
             var news = await context.NewsEntities.Where(n => tagNewsIds.Contains(n.Id)).ToListAsync();
             return news;
         }
