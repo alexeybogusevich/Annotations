@@ -3,6 +3,7 @@ using KNU.PR.NewsSaver.Constants;
 using KNU.PR.NewsSaver.Servcies.ApiHandler;
 using KNU.PR.NewsSaver.Servcies.DbSaver;
 using KNU.PR.NewsSaver.Servcies.EntityConverter;
+using KNU.PR.NewsSaver.Servcies.Filter;
 using KNU.PR.NewsSaver.Servcies.TagService;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,8 @@ namespace KNU.PR.NewsSaver
             builder.Services.AddScoped<ITagService, TagService>();
             builder.Services.AddScoped<IApiHandler, ApiHandler>();
             builder.Services.AddScoped<IEntityConverter, EntityConverter>();
+            builder.Services.AddScoped<IFilter, StopWordsFilter>();
+            builder.Services.AddScoped<IFilter, PorterStemmerFilter>();
         }
     }
 }
