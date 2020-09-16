@@ -5,6 +5,6 @@ namespace KNU.PR.NewsSaver.Servcies.TagService
 {
     public interface ITagService
     {
-        List<NewsItemTag> GetAllTagsForNewsItem(string text);
+        List<NewsItemTag> GetTopTagsForNewsItem(string text);
     }
 }

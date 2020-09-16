@@ -5,5 +5,10 @@ namespace KNU.PR.NewsSaver.Models.NewsItemTag
     {
         public string Name { get; set; }
         public int OccurencesCount { get; set; }
+        public NewsItemTag(string name, int count)
+        {
+            this.Name = name;
+            this.OccurencesCount = count;
+        }
     }
 }

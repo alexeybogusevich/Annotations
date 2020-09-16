@@ -1,6 +1,7 @@
 ﻿using KNU.PR.NewsSaver.Models.NewsItemTag;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace KNU.PR.NewsSaver.Servcies.TagService
@@ -14,9 +15,25 @@ namespace KNU.PR.NewsSaver.Servcies.TagService
 
         }
 
-        public List<NewsItemTag> GetAllTagsForNewsItem(string text)
+        public List<NewsItemTag> GetTopTagsForNewsItem(string text)
         {
-            return null;
+            var words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var result = new List<NewsItemTag>();
+            
+            foreach (var word in words)
+            {
+                if (!result.Exists(delegate (NewsItemTag x) { return string.Equals(x.Name, word) ? true : false; }))
+                {
+                    var newTag = new NewsItemTag(word, 1);
+                    result.Add(newTag);
+                }
+                else
+                {
+                    result.Find(x => x.Name == word).OccurencesCount++;
+                }
+            }
+            var sorted = result.OrderByDescending(x => x.OccurencesCount).Take(topTagsCount);
+            return sorted.ToList();
         }
     }
 }

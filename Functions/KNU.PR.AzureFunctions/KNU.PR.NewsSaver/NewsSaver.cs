@@ -42,6 +42,16 @@ namespace KNU.PR.NewsSaver
             var lastDayNews = await apiHandler.GetLast24HoursNewsAsync();
             log.LogInformation($"C# Timer trigger function proccessed last day news at: {DateTime.Now}. Count: {lastDayNews.Count}");
 
+            /*
+             * DEBUG
+             */
+            var test = "i love cats cats love cats";
+            var result = tagService.GetTopTagsForNewsItem(test);
+
+            /*
+             * END DEBUG
+             */
+
             foreach (var item in lastDayNews)
             {
                 var entity = entityConverter.ConvertArticle(item);
@@ -51,7 +61,7 @@ namespace KNU.PR.NewsSaver
                 // Update current tags in DB
                 
                 
-                var tags = tagService.GetAllTagsForNewsItem(filteredItem);
+                var tags = tagService.GetTopTagsForNewsItem(filteredItem);
                 await dbSaver.SaveTagsAndModelAsync(tags, entity);
                 log.LogInformation($"Article saved. Url: {item.Url}.");
             }
