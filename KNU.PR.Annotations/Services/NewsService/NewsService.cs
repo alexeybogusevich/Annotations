@@ -31,7 +31,7 @@ namespace KNU.PR.Annotations.Services.NewsService
         {
             // var tagNewsIds = await context.TagsNews.Where(t => t.TagId.Equals(tagId)).OrderByDescending(n => n.OccurencesCount).Select(t => t.NewsEntityId).ToListAsync();
             //var news = await context.NewsEntities.Where(n => tagNewsIds.Contains(n.Id)).ToListAsync(); 
-            var tagNewsIds = await context.TagsNews.ToListAsync();
+            var tagNewsIds = await context.TagsClusters.ToListAsync();
             var news = await context.NewsEntities.ToListAsync();
             return news;
         }

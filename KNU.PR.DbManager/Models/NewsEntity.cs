@@ -17,5 +17,6 @@ namespace KNU.PR.DbManager.Models
         public DateTime PublishedAt { get; set; }
         public Guid? ClusterId { get; set; }
         public ClusterEntity Cluster { get; set; }
+        public DateTime AddedAt { get; set; }
     }
 }

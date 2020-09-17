@@ -11,7 +11,7 @@ namespace KNU.PR.DbManager.Connections
     {
         public DbSet<NewsEntity> NewsEntities { get; set; }
         public DbSet<TagEntity> Tags { get; set; }
-        public DbSet<TagClusterEntity> TagsNews { get; set; }
+        public DbSet<TagClusterEntity> TagsClusters { get; set; }
         public DbSet<ClusterEntity> Clusters { get; set; }
         public DbSet<SubclusterEntity> Subclusters { get; set; }
 

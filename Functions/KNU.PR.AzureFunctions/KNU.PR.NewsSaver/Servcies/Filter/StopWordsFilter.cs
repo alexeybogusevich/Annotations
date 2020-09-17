@@ -375,7 +375,7 @@ namespace KNU.PR.NewsSaver.Servcies.Filter
             foreach (string currentWord in words)
             {
                 string lowerWord = currentWord.ToLower();
-                if (!_stops.ContainsKey(lowerWord))
+                if (!_stops.ContainsKey(lowerWord) && lowerWord.Length > 1)
                 {
                     builder.Append(lowerWord).Append(' ');
                 }

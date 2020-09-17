@@ -23,7 +23,8 @@ namespace KNU.PR.NewsSaver.Servcies.EntityConverter
                 Description = article.Description,
                 Url = article.Url,
                 UrlToImage = article.UrlToImage,
-                PublishedAt = Convert.ToDateTime(article.PublishedAt)
+                PublishedAt = Convert.ToDateTime(article.PublishedAt),
+                AddedAt = DateTime.Now
             };
         }
     }

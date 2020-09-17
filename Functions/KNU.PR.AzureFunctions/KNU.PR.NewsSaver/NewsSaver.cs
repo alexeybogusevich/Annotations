@@ -53,8 +53,15 @@ namespace KNU.PR.NewsSaver
                 var tags = tagService.GetTopTagsForNewsItem(filteredItem);
 
                 // Insert article to DB, update current tags with new ones
-                await dbSaver.SaveTagsAndModelAsync(tags, entity);
-                log.LogInformation($"Article saved. Url: {item.Url}.");
+                try
+                {
+                    await dbSaver.SaveTagsAndModelAsync(tags, entity);
+                    log.LogInformation($"Article saved. Url: {item.Url}.");
+                }
+                catch (Exception e)
+                {
+                    log.LogInformation($"Exception while saving the article. Error message: {e.Message}");
+                }
             }
 
             log.LogInformation($"C# Timer trigger function finished execution at: {DateTime.Now}");
