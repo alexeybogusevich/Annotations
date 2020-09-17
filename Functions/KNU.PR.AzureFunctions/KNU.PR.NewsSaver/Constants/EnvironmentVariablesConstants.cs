@@ -9,5 +9,6 @@ namespace KNU.PR.NewsSaver.Constants
     {
         public const string DbConnection = nameof(DbConnection);
         public const string ApiKey = nameof(ApiKey);
+        public const string RapidApiKey = nameof(RapidApiKey);
     }
 }

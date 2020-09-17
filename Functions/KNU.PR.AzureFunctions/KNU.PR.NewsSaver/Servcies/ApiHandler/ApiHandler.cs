@@ -21,6 +21,7 @@ namespace KNU.PR.NewsSaver.Servcies.ApiHandler
         private readonly HttpClient client;
         private readonly IRestClient restClient;
         private readonly string apiKey;
+        private readonly string rapidApiKey;
         private readonly ILogger<ApiHandler> logger;
 
         public ApiHandler(HttpClient client, IRestClient restClient, ILogger<ApiHandler> logger)
@@ -28,6 +29,7 @@ namespace KNU.PR.NewsSaver.Servcies.ApiHandler
             this.client = client;
             this.restClient = restClient;
             this.apiKey = Environment.GetEnvironmentVariable(EnvironmentVariablesConstants.ApiKey, EnvironmentVariableTarget.Process);
+            this.rapidApiKey = Environment.GetEnvironmentVariable(EnvironmentVariablesConstants.RapidApiKey, EnvironmentVariableTarget.Process);
             this.logger = logger;
         }
 
@@ -57,7 +59,7 @@ namespace KNU.PR.NewsSaver.Servcies.ApiHandler
                 var restClient = new RestClient(requestUri2);
                 var request = new RestRequest(Method.GET);
                 request.AddHeader("x-rapidapi-host", "extract-news.p.rapidapi.com");
-                request.AddHeader("x-rapidapi-key", "4f4b3ac123mshf5722306146a3b8p146380jsn02a6887ac44b");
+                request.AddHeader("x-rapidapi-key", rapidApiKey);
 
                 IRestResponse restResponse = restClient.Execute(request);
 
