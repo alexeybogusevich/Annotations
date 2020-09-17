@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,21 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using RestSharp;
 
 namespace KNU.PR.NewsSaver.Servcies.ApiHandler
 {
     public class ApiHandler : IApiHandler
     {
         private readonly HttpClient client;
+        private readonly IRestClient restClient;
         private readonly string apiKey;
         private readonly ILogger<ApiHandler> logger;
 
-        public ApiHandler(HttpClient client, ILogger<ApiHandler> logger)
+        public ApiHandler(HttpClient client, IRestClient restClient, ILogger<ApiHandler> logger)
         {
             this.client = client;
+            this.restClient = restClient;
             this.apiKey = Environment.GetEnvironmentVariable(EnvironmentVariablesConstants.ApiKey, EnvironmentVariableTarget.Process);
             this.logger = logger;
         }
@@ -33,7 +37,7 @@ namespace KNU.PR.NewsSaver.Servcies.ApiHandler
             var requestUri = $"https://newsapi.org/v2/everything?from={yesterday}&q=Barcelona&apiKey={apiKey}";
             var response = await client.GetAsync(requestUri);
 
-            if(response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Accepted)
+            if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Accepted)
             {
                 logger.LogError($"API Request failed: {response.StatusCode}");
             }
@@ -42,8 +46,38 @@ namespace KNU.PR.NewsSaver.Servcies.ApiHandler
 
             var jsonResult = await response.Content.ReadAsStringAsync();
             var deserializedObject = JsonConvert.DeserializeObject<ResponseModel>(jsonResult);
+            var articles = deserializedObject.Articles.Take(100).ToList();
 
-            return deserializedObject.Articles.Take(100).ToList();
+            // Getting full text from url using Extract News API
+            foreach (Article article in articles)
+            {
+                var url = article.Url;
+                var requestUri2 = $"https://extract-news.p.rapidapi.com/v0/article?url={url}";
+
+                var restClient = new RestClient(requestUri2);
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("x-rapidapi-host", "extract-news.p.rapidapi.com");
+                request.AddHeader("x-rapidapi-key", "4f4b3ac123mshf5722306146a3b8p146380jsn02a6887ac44b");
+
+                IRestResponse restResponse = restClient.Execute(request);
+
+                if (restResponse.StatusCode != HttpStatusCode.OK && restResponse.StatusCode != HttpStatusCode.Accepted)
+                {
+                    logger.LogError($"Extract News API Request failed: {restResponse.StatusCode}");
+                }
+
+                logger.LogInformation($"Extract News API Request success: {restResponse.StatusCode}");
+
+                var responseContent = restResponse.Content;
+
+                JObject joResponse = JObject.Parse(responseContent);
+                JObject ojObject = (JObject)joResponse["article"];
+                string articleText = ((JValue)ojObject["text"]).ToString();
+
+                article.Content = articleText;
+            }
+
+            return articles;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace KNU.PR.NewsSaver.Servcies.TagService
 {
     public class TagService : ITagService
     {
-        private readonly int topTagsCount = 5;
+        private readonly int topTagsCount = 10;
 
         public TagService()
         {

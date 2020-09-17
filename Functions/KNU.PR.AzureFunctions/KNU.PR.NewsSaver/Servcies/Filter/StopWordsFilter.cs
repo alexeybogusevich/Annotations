@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace KNU.PR.NewsSaver.Servcies.Filter
 {
@@ -215,6 +216,7 @@ namespace KNU.PR.NewsSaver.Servcies.Filter
         { "put", true },
         { "rather", true },
         { "re", true },
+        { "said", true },
         { "same", true },
         { "see", true },
         { "seem", true },
@@ -327,25 +329,43 @@ namespace KNU.PR.NewsSaver.Servcies.Filter
         { "yourselves", true }
     };
 
-        private static readonly char[] _delimiters = new char[]
+        private static readonly string[] _delimiters = new string[]
         {
-            ',',
-            ';',
-            '.',
-            '-',
-            '!',
-            '?',
-            '\u0022',
-            '\u201C',
-            '\u201D'
+            ",",
+            ";",
+            ".",
+            "-",
+            "!",
+            "?",
+            "/",
+            "\u005C",
+            "\u0022",
+            "\u201C",
+            "\u201D",
+            "\u2013",
+            "\u2014",
+            "\u2015",
+            "\u2018",
+            "\u2019",
+            "\n",
+            "(",
+            ")",
+            "[",
+            "]",
+            "{",
+            "}"
         };
 
         public string Process(string input)
         {
-            foreach(char c in _delimiters)
+            foreach (string c in _delimiters)
             {
-                input = input.Replace(c.ToString(), string.Empty);
+                input = input.Replace(c.ToString(), " ");
             }
+
+            RegexOptions options = RegexOptions.None;
+            Regex regex = new Regex("[ ]{2,}", options);
+            input = regex.Replace(input, " ");
 
             var words = input.Split(' ',
                 StringSplitOptions.RemoveEmptyEntries);
