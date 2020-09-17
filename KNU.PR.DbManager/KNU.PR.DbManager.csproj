@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200917203757_AddedClusterEntity.cs" />
+    <Compile Remove="Migrations\20200917203757_AddedClusterEntity.Designer.cs" />
+    <Compile Remove="Migrations\20200917205041_AddedClusterEntity.cs" />
+    <Compile Remove="Migrations\20200917205041_AddedClusterEntity.Designer.cs" />
+    <Compile Remove="Migrations\20200917205134_AddedClusterEntity.cs" />
+    <Compile Remove="Migrations\20200917205134_AddedClusterEntity.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">

@@ -38,9 +38,9 @@ namespace KNU.PR.NewsSaver.Servcies.DbSaver
                 foreach (var tag in tags)
                 {
                     context.TagsNews.Add(
-                        new TagNewsEntity
+                        new TagClusterEntity
                         {
-                            NewsEntityId = newsEntity.Id,
+                            ClusterId = newsEntity.Id,
                             OccurencesCount = tag.OccurencesCount
                         });
                 }

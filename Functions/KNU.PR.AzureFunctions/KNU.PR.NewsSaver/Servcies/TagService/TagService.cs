@@ -32,6 +32,7 @@ namespace KNU.PR.NewsSaver.Servcies.TagService
                     result.Find(x => x.Name == word).OccurencesCount++;
                 }
             }
+
             var sorted = result.OrderByDescending(x => x.OccurencesCount).Take(topTagsCount);
             return sorted.ToList();
         }

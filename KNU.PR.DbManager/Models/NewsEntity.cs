@@ -15,5 +15,7 @@ namespace KNU.PR.DbManager.Models
         public string Url { get; set; }
         public string UrlToImage { get; set; }
         public DateTime PublishedAt { get; set; }
+        public Guid? ClusterId { get; set; }
+        public ClusterEntity Cluster { get; set; }
     }
 }
