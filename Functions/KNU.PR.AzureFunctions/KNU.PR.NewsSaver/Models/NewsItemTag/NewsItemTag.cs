@@ -1,5 +1,5 @@
 ﻿
-namespace KNU.PR.NewsSaver.Models.NewsItemTag
+namespace KNU.PR.NewsManager.Models.NewsItemTag
 {
     public class NewsItemTag
     {

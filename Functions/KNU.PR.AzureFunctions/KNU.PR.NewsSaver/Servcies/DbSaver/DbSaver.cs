@@ -1,6 +1,6 @@
 ﻿using KNU.PR.DbManager.Connections;
 using KNU.PR.DbManager.Models;
-using KNU.PR.NewsSaver.Models.NewsItemTag;
+using KNU.PR.NewsManager.Models.NewsItemTag;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KNU.PR.NewsSaver.Servcies.DbSaver
+namespace KNU.PR.NewsManager.Servcies.DbSaver
 {
     public class DbSaver : IDbSaver
     {
@@ -41,7 +41,7 @@ namespace KNU.PR.NewsSaver.Servcies.DbSaver
             }
 
             // Create new cluster for news item
-            var cluster = new ClusterEntity { Id = Guid.NewGuid() };
+            var cluster = new ClusterEntity { Id = Guid.NewGuid(), NewsCount = 1 };
             // Link cluster to news item
             newsEntity.ClusterId = cluster.Id;
 
@@ -65,12 +65,7 @@ namespace KNU.PR.NewsSaver.Servcies.DbSaver
                 allTags.AddRange(newTags);
 
                 // Preparing to normalize the occurences vector
-                double tagCountSquareSum = 0;
-                foreach (var tag in tags)
-                {
-                    tagCountSquareSum += tag.OccurencesCount * tag.OccurencesCount;
-                }
-                tagCountSquareSum = Math.Sqrt(tagCountSquareSum);
+                double tagCountSquareSum = Math.Sqrt(tags.Sum(t => t.OccurencesCount * t.OccurencesCount));
 
                 // Adding links between clusters and tags
                 foreach (var tag in tags)
@@ -90,5 +85,28 @@ namespace KNU.PR.NewsSaver.Servcies.DbSaver
             context.NewsEntities.Add(newsEntity);
             await context.SaveChangesAsync();
         }
+
+        public async Task SaveClusterAndTagsAsync(ClusterEntity cluster, List<NewsItemTag> tags)
+        {
+            var allTags = await context.Tags.Select(t => t).ToListAsync();
+
+            double tagCountSquareSum = Math.Sqrt(tags.Sum(t => t.OccurencesCount * t.OccurencesCount));
+
+            foreach (var tag in tags)
+            {
+                context.TagsClusters.Add(
+                    new TagClusterEntity
+                    {
+                        ClusterId = cluster.Id,
+                        TagId = allTags.Where(t => t.Name == tag.Name).FirstOrDefault().Id,
+                        OccurencesCount = tag.OccurencesCount,
+                        NormOccurencesCount = (double)tag.OccurencesCount / tagCountSquareSum
+                    });
+            }
+
+            context.Clusters.Add(cluster);
+            await context.SaveChangesAsync();
+        }
+
     }
 }

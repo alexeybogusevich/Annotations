@@ -1,5 +1,5 @@
-﻿using KNU.PR.NewsSaver.Constants;
-using KNU.PR.NewsSaver.Models.NewsModel;
+﻿using KNU.PR.NewsManager.Constants;
+using KNU.PR.NewsManager.Models.NewsModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
 
-namespace KNU.PR.NewsSaver.Servcies.ApiHandler
+namespace KNU.PR.NewsManager.Servcies.ApiHandler
 {
     public class ApiHandler : IApiHandler
     {
@@ -41,14 +41,15 @@ namespace KNU.PR.NewsSaver.Servcies.ApiHandler
 
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Accepted)
             {
-                logger.LogError($"API Request failed: {response.StatusCode}");
+                logger.LogError($"News API Request failed: {response.StatusCode}");
             }
 
-            logger.LogInformation($"API Request success: {response.StatusCode}");
+            logger.LogInformation($"News API Request success: {response.StatusCode}");
 
             var jsonResult = await response.Content.ReadAsStringAsync();
             var deserializedObject = JsonConvert.DeserializeObject<ResponseModel>(jsonResult);
-            var articles = deserializedObject.Articles.Take(1).ToList();
+            //var articles = deserializedObject.Articles.Take(1).ToList();
+            var articles = deserializedObject.Articles.GetRange(1, 1).ToList();
 
             // Getting full text from url using Extract News API
             foreach (Article article in articles)
@@ -65,10 +66,10 @@ namespace KNU.PR.NewsSaver.Servcies.ApiHandler
 
                 if (restResponse.StatusCode != HttpStatusCode.OK && restResponse.StatusCode != HttpStatusCode.Accepted)
                 {
-                    logger.LogError($"Extract News API Request failed: {restResponse.StatusCode}");
+                    logger.LogError($"ExtractNews API Request failed: {restResponse.StatusCode}");
                 }
 
-                logger.LogInformation($"Extract News API Request success: {restResponse.StatusCode}");
+                logger.LogInformation($"ExtractNews API Request success: {restResponse.StatusCode}");
 
                 var responseContent = restResponse.Content;
 

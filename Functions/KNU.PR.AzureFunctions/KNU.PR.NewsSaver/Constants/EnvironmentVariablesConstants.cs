@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 
-namespace KNU.PR.NewsSaver.Constants
+namespace KNU.PR.NewsManager.Constants
 {
     public static class EnvironmentVariablesConstants
     {

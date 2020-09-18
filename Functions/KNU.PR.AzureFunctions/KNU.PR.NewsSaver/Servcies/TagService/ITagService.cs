@@ -1,7 +1,7 @@
-﻿using KNU.PR.NewsSaver.Models.NewsItemTag;
+﻿using KNU.PR.NewsManager.Models.NewsItemTag;
 using System.Collections.Generic;
 
-namespace KNU.PR.NewsSaver.Servcies.TagService
+namespace KNU.PR.NewsManager.Servcies.TagService
 {
     public interface ITagService
     {

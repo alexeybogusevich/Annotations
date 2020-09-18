@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KNU.PR.NewsSaver.Models.NewsModel
+namespace KNU.PR.NewsManager.Models.NewsModel
 {
     public class Source
     {

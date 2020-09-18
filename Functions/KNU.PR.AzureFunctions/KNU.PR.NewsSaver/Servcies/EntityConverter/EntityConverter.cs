@@ -1,10 +1,10 @@
 ﻿using KNU.PR.DbManager.Models;
-using KNU.PR.NewsSaver.Models.NewsModel;
+using KNU.PR.NewsManager.Models.NewsModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace KNU.PR.NewsSaver.Servcies.EntityConverter
+namespace KNU.PR.NewsManager.Servcies.EntityConverter
 {
     public class EntityConverter : IEntityConverter
     {

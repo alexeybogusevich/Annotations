@@ -1,10 +1,11 @@
 ﻿using KNU.PR.DbManager.Connections;
-using KNU.PR.NewsSaver.Constants;
-using KNU.PR.NewsSaver.Servcies.ApiHandler;
-using KNU.PR.NewsSaver.Servcies.DbSaver;
-using KNU.PR.NewsSaver.Servcies.EntityConverter;
-using KNU.PR.NewsSaver.Servcies.Filter;
-using KNU.PR.NewsSaver.Servcies.TagService;
+using KNU.PR.NewsManager.Constants;
+using KNU.PR.NewsManager.Servcies.ApiHandler;
+using KNU.PR.NewsManager.Servcies.DbSaver;
+using KNU.PR.NewsManager.Servcies.EntityConverter;
+using KNU.PR.NewsManager.Servcies.Filter;
+using KNU.PR.NewsManager.Servcies.TagService;
+using KNU.PR.NewsManager.Servcies.VectorModelBuilder;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,8 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-[assembly: FunctionsStartup(typeof(KNU.PR.NewsSaver.Startup))]
-namespace KNU.PR.NewsSaver
+[assembly: FunctionsStartup(typeof(KNU.PR.NewsManager.Startup))]
+namespace KNU.PR.NewsManager
 {
     class Startup : FunctionsStartup
     {
@@ -32,6 +33,7 @@ namespace KNU.PR.NewsSaver
             builder.Services.AddScoped<IEntityConverter, EntityConverter>();
             builder.Services.AddScoped<IFilter, StopWordsFilter>();
             builder.Services.AddScoped<IFilter, PorterStemmerFilter>();
+            builder.Services.AddScoped<IVectorModelBuilder, VectorModelBuilder>();
         }
     }
 }

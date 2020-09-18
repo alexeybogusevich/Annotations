@@ -1,8 +1,10 @@
-﻿using KNU.PR.NewsSaver.Servcies.ApiHandler;
-using KNU.PR.NewsSaver.Servcies.DbSaver;
-using KNU.PR.NewsSaver.Servcies.EntityConverter;
-using KNU.PR.NewsSaver.Servcies.Filter;
-using KNU.PR.NewsSaver.Servcies.TagService;
+﻿using KNU.PR.NewsManager.Servcies.ApiHandler;
+using KNU.PR.NewsManager.Servcies.DbGetter;
+using KNU.PR.NewsManager.Servcies.DbSaver;
+using KNU.PR.NewsManager.Servcies.EntityConverter;
+using KNU.PR.NewsManager.Servcies.Filter;
+using KNU.PR.NewsManager.Servcies.TagService;
+using KNU.PR.NewsManager.Servcies.VectorModelBuilder;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,28 +12,37 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KNU.PR.NewsSaver
+namespace KNU.PR.NewsManager
 {
-    public class NewsSaver
+    public class NewsManager
     {
         private readonly IApiHandler apiHandler;
+        private readonly IDbGetter dbGetter;
         private readonly IDbSaver dbSaver;
-        private readonly ITagService tagService;
         private readonly IEntityConverter entityConverter;
         private readonly IFilter stopWordsFilter;
         private readonly IFilter porterFilter;
+        private readonly ITagService tagService;
+        private readonly IVectorModelBuilder vectorModelBuilder;
 
-        public NewsSaver(IApiHandler apiHandler, IDbSaver dbSaver, ITagService tagService, IEntityConverter entityConverter)
+        public NewsManager(IApiHandler apiHandler,
+            IDbGetter dbGetter,
+            IDbSaver dbSaver,
+            ITagService tagService,
+            IEntityConverter entityConverter,
+            IVectorModelBuilder vmBuilder)
         {
             this.apiHandler = apiHandler;
+            this.dbGetter = dbGetter;
             this.dbSaver = dbSaver;
             this.tagService = tagService;
             this.entityConverter = entityConverter;
             this.stopWordsFilter = new StopWordsFilter();
             this.porterFilter = new PorterStemmerFilter();
+            this.vectorModelBuilder = vmBuilder;
         }
 
-        [FunctionName(nameof(NewsSaver))]
+        [FunctionName(nameof(NewsManager))]
         public async Task RunAsync([TimerTrigger("00 10 * * *", RunOnStartup = true)] TimerInfo timer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
@@ -41,6 +52,10 @@ namespace KNU.PR.NewsSaver
             }
             var lastDayNews = await apiHandler.GetLast24HoursNewsAsync();
             log.LogInformation($"C# Timer trigger function proccessed last day news at: {DateTime.Now}. Count: {lastDayNews.Count}");
+
+            /*
+             * Preprocessing
+             */
 
             foreach (var item in lastDayNews)
             {
@@ -66,7 +81,17 @@ namespace KNU.PR.NewsSaver
 
             log.LogInformation($"C# Timer trigger function finished execution at: {DateTime.Now}");
 
+            /*
+             * Processing
+             */
 
+            // Delete all from Subcluster Entity
+
+            // Delete all clusters with NewsCount > 1 (from ClusterEntity, TagClusterEntity)
+
+            // Dump all clusters and their vectors to VectorModelBuilder
+            //var clustersTags = dbGetter.GetAllClustersAndTags();
+            //vectorModelBuilder.Process(clustersTags);
         }
     }
 }

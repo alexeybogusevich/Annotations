@@ -4,7 +4,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 
-namespace KNU.PR.NewsSaver
+namespace KNU.PR.NewsManager
 {
     public static class Function
     {

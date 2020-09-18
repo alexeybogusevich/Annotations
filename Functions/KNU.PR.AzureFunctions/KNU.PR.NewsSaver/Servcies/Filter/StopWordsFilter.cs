@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace KNU.PR.NewsSaver.Servcies.Filter
+namespace KNU.PR.NewsManager.Servcies.Filter
 {
     public class StopWordsFilter : IFilter
     {

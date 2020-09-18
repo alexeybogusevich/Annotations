@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KNU.PR.NewsSaver.Servcies.Filter
+namespace KNU.PR.NewsManager.Servcies.Filter
 {
     public interface IFilter
     {

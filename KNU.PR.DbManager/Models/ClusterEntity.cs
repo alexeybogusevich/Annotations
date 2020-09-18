@@ -7,5 +7,6 @@ namespace KNU.PR.DbManager.Models
     public class ClusterEntity
     {
         public Guid Id { get; set; }
+        public int NewsCount { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-﻿using KNU.PR.NewsSaver.Models.NewsModel;
+﻿using KNU.PR.NewsManager.Models.NewsModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace KNU.PR.NewsSaver.Servcies.ApiHandler
+namespace KNU.PR.NewsManager.Servcies.ApiHandler
 {
     public interface IApiHandler
     {

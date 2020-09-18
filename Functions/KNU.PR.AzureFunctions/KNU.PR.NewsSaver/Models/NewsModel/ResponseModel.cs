@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace KNU.PR.NewsSaver.Models.NewsModel
+namespace KNU.PR.NewsManager.Models.NewsModel
 {
     public class ResponseModel
     {
