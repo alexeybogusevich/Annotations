@@ -31,7 +31,7 @@ namespace KNU.PR.NewsManager.Servcies.DbSaver
             await context.SaveChangesAsync();
         }
 
-        public async Task SaveTagsAndModelAsync(List<NewsItemTag> tags, NewsEntity newsEntity)
+        public async Task SaveTagsAndModelAsync(List<Tag> tags, NewsEntity newsEntity)
         {
             // Check if this article is already in database
             var allNewsDesctiptions = await context.NewsEntities.Select(t => t.Description).ToListAsync();
@@ -64,9 +64,6 @@ namespace KNU.PR.NewsManager.Servcies.DbSaver
                 context.Tags.AddRange(newTags);
                 allTags.AddRange(newTags);
 
-                // Preparing to normalize the occurences vector
-                double tagCountSquareSum = Math.Sqrt(tags.Sum(t => t.OccurencesCount * t.OccurencesCount));
-
                 // Adding links between clusters and tags
                 foreach (var tag in tags)
                 {
@@ -76,7 +73,7 @@ namespace KNU.PR.NewsManager.Servcies.DbSaver
                             ClusterId = cluster.Id,
                             TagId = allTags.Where(t => t.Name == tag.Name).FirstOrDefault().Id,
                             OccurencesCount = tag.OccurencesCount,
-                            NormOccurencesCount = (double)tag.OccurencesCount / tagCountSquareSum
+                            NormOccurencesCount = tag.NormCount
                         });
                 }
             }
@@ -86,11 +83,9 @@ namespace KNU.PR.NewsManager.Servcies.DbSaver
             await context.SaveChangesAsync();
         }
 
-        public async Task SaveClusterAndTagsAsync(ClusterEntity cluster, List<NewsItemTag> tags)
+        public async Task SaveClusterAndTagsAsync(ClusterEntity cluster, List<Tag> tags)
         {
             var allTags = await context.Tags.Select(t => t).ToListAsync();
-
-            double tagCountSquareSum = Math.Sqrt(tags.Sum(t => t.OccurencesCount * t.OccurencesCount));
 
             foreach (var tag in tags)
             {
@@ -100,7 +95,7 @@ namespace KNU.PR.NewsManager.Servcies.DbSaver
                         ClusterId = cluster.Id,
                         TagId = allTags.Where(t => t.Name == tag.Name).FirstOrDefault().Id,
                         OccurencesCount = tag.OccurencesCount,
-                        NormOccurencesCount = (double)tag.OccurencesCount / tagCountSquareSum
+                        NormOccurencesCount = tag.NormCount
                     });
             }
 

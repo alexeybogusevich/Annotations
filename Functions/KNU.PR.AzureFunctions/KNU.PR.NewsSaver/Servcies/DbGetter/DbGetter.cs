@@ -1,5 +1,7 @@
 ﻿using KNU.PR.DbManager.Connections;
 using KNU.PR.DbManager.Models;
+using KNU.PR.NewsManager.Models.Cluster;
+using KNU.PR.NewsManager.Models.NewsItemTag;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,21 +39,29 @@ namespace KNU.PR.NewsManager.Servcies.DbGetter
             return newCluster.Id;
         }
 
-        public Dictionary<Guid, List<Tuple<string, double>>> GetAllClustersAndTags()
+        public List<Cluster> GetAllClustersAndTags()
         {
-            var result = new Dictionary<Guid, List<Tuple<string, double>>>();
+            var result = new List<Cluster>();
 
             var allClusters = context.Clusters.Select(c => c).ToList();
             foreach (ClusterEntity cluster in allClusters)
             {
                 var tags = context.TagsClusters
                     .Where(t => t.ClusterId == cluster.Id)
-                    .Select(t => new { t.Tag.Name, t.NormOccurencesCount })
+                    .Select(t => new { t.Tag.Name, t.OccurencesCount, t.NormOccurencesCount })
                     .AsEnumerable()
-                    .Select(t => new Tuple<string, double>(t.Name, t.NormOccurencesCount))
+                    .Select(t => new Tag(t.Name, t.OccurencesCount, t.NormOccurencesCount))
                     .ToList();
 
-                result.Add(cluster.Id, tags);
+                /*
+                 * TO DO
+                 * 
+                var articles = context.Subclusters
+                    .Where(s=>s.ParentId == cluster.Id)
+                var newCluster = new Cluster(cluster.Id, cluster.NewsCount, articles, tags);
+
+                result.Add(newCluster);
+                */
             }
 
             return result;

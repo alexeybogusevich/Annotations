@@ -48,8 +48,8 @@ namespace KNU.PR.NewsManager.Servcies.ApiHandler
 
             var jsonResult = await response.Content.ReadAsStringAsync();
             var deserializedObject = JsonConvert.DeserializeObject<ResponseModel>(jsonResult);
-            //var articles = deserializedObject.Articles.Take(1).ToList();
-            var articles = deserializedObject.Articles.GetRange(1, 1).ToList();
+            var articles = deserializedObject.Articles.Take(1).ToList();
+            //var articles = deserializedObject.Articles.GetRange(1, 1).ToList();
 
             // Getting full text from url using Extract News API
             foreach (Article article in articles)

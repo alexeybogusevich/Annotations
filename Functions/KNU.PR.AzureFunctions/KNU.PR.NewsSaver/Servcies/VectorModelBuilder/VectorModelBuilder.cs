@@ -1,4 +1,5 @@
-﻿using KNU.PR.NewsManager.Servcies.DbGetter;
+﻿using KNU.PR.NewsManager.Models.Cluster;
+using KNU.PR.NewsManager.Servcies.DbGetter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,12 @@ namespace KNU.PR.NewsManager.Servcies.VectorModelBuilder
         {
             this.dbGetter = dbGetter;
         }
-        public void Process(Dictionary<Guid, List<Tuple<string, double>>> clustersTags)
+        public void Process()
         {
             //double[,] matrix = new double[clustersTags.Count, clustersTags.Count] { { 0, 0 } };
         }
 
-        private double similarity(List<(string, double)> vector1, List<(string, double)> vector2)
+        private double similarity(Cluster cluster1, Cluster cluster2)
         {
             double result = 0;
 

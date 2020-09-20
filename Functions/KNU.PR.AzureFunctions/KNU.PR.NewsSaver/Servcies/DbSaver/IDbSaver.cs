@@ -10,8 +10,8 @@ namespace KNU.PR.NewsManager.Servcies.DbSaver
     {
         Task SaveNewsItemAsync(NewsEntity newsEntity);
         Task SaveTagAsync(TagEntity tag);
-        Task SaveTagsAndModelAsync(List<NewsItemTag> tags, NewsEntity newsEntity);
-        Task SaveClusterAndTagsAsync(ClusterEntity cluster, List<NewsItemTag> tags);
+        Task SaveTagsAndModelAsync(List<Tag> tags, NewsEntity newsEntity);
+        Task SaveClusterAndTagsAsync(ClusterEntity cluster, List<Tag> tags);
 
     }
 }

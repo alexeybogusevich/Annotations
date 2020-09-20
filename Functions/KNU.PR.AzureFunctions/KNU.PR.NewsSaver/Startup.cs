@@ -1,6 +1,7 @@
 ﻿using KNU.PR.DbManager.Connections;
 using KNU.PR.NewsManager.Constants;
 using KNU.PR.NewsManager.Servcies.ApiHandler;
+using KNU.PR.NewsManager.Servcies.DbGetter;
 using KNU.PR.NewsManager.Servcies.DbSaver;
 using KNU.PR.NewsManager.Servcies.EntityConverter;
 using KNU.PR.NewsManager.Servcies.Filter;
@@ -28,6 +29,7 @@ namespace KNU.PR.NewsManager
             builder.Services.AddHttpClient<IApiHandler, ApiHandler>();
 
             builder.Services.AddScoped<IDbSaver, DbSaver>();
+            builder.Services.AddScoped<IDbGetter, DbGetter>();
             builder.Services.AddScoped<ITagService, TagService>();
             builder.Services.AddScoped<IApiHandler, ApiHandler>();
             builder.Services.AddScoped<IEntityConverter, EntityConverter>();
